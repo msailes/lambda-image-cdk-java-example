@@ -1,0 +1,114 @@
+Resources:
+  MyFunctionServiceRole3C357FF2:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: CdkSamExampleStack/MyFunction/ServiceRole/Resource
+  MyFunction3BAA72D1:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ImageUri:
+          Fn::Join:
+            - ""
+            - - Ref: AWS::AccountId
+              - .dkr.ecr.
+              - Ref: AWS::Region
+              - "."
+              - Ref: AWS::URLSuffix
+              - /aws-cdk/assets:9e67e4f38a6a2cd6ed1cd276395252186fd1a45620b793246585ef85603c4b80
+      Role:
+        Fn::GetAtt:
+          - MyFunctionServiceRole3C357FF2
+          - Arn
+      PackageType: Image
+    DependsOn:
+      - MyFunctionServiceRole3C357FF2
+    Metadata:
+      aws:cdk:path: CdkSamExampleStack/MyFunction/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.87.1,@aws-cdk/assets=1.87.1,@aws-cdk/aws-applicationautoscaling=1.87.1,@aws-cdk/aws-autoscaling-common=1.87.1,@aws-cdk/aws-cloudwatch=1.87.1,@aws-cdk/aws-codeguruprofiler=1.87.1,@aws-cdk/aws-ec2=1.87.1,@aws-cdk/aws-ecr=1.87.1,@aws-cdk/aws-ecr-assets=1.87.1,@aws-cdk/aws-efs=1.87.1,@aws-cdk/aws-events=1.87.1,@aws-cdk/aws-iam=1.87.1,@aws-cdk/aws-kms=1.87.1,@aws-cdk/aws-lambda=1.87.1,@aws-cdk/aws-logs=1.87.1,@aws-cdk/aws-s3=1.87.1,@aws-cdk/aws-s3-assets=1.87.1,@aws-cdk/aws-sqs=1.87.1,@aws-cdk/aws-ssm=1.87.1,@aws-cdk/cloud-assembly-schema=1.87.1,@aws-cdk/core=1.87.1,@aws-cdk/cx-api=1.87.1,@aws-cdk/region-info=1.87.1,jsii-runtime=Java/1.8.0_252
+    Metadata:
+      aws:cdk:path: CdkSamExampleStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+
