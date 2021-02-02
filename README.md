@@ -1,6 +1,8 @@
+```bash
 mkdir cdk-sam-example
 cd cdk-sam-example
 cdk init app --language java
+```
 
 add the lambda dependency to the pom.xml
 
