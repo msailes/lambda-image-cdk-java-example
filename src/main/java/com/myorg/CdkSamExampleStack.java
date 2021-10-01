@@ -21,7 +21,7 @@ public class CdkSamExampleStack extends Stack {
         super(scope, id, props);
 
         new DockerImageFunction(this, "MyFunction", DockerImageFunctionProps.builder()
-                .code(DockerImageCode.fromImageAsset("./lambda-image-support/HelloWorldFunction"))
+                .code(DockerImageCode.fromImageAsset("./own-base-image/HelloWorldFunction"))
                 .timeout(Duration.seconds(20))
                 .memorySize(1024)
                 .architectures(Collections.singletonList(Architecture.ARM_64))
