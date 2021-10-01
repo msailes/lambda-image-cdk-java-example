@@ -7,15 +7,10 @@ import software.amazon.awscdk.core.StackProps;
 import software.amazon.awscdk.services.iam.IManagedPolicy;
 import software.amazon.awscdk.services.iam.ManagedPolicy;
 import software.amazon.awscdk.services.iam.Role;
-import software.amazon.awscdk.services.lambda.AssetImageCodeProps;
-import software.amazon.awscdk.services.lambda.Code;
-import software.amazon.awscdk.services.lambda.DockerImageCode;
-import software.amazon.awscdk.services.lambda.DockerImageFunction;
-import software.amazon.awscdk.services.lambda.DockerImageFunctionProps;
-import software.amazon.awscdk.services.lambda.EcrImageCode;
-import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
+import software.amazon.awscdk.services.lambda.*;
 import software.amazon.awscdk.services.lambda.Runtime;
+
+import java.util.Collections;
 
 public class CdkSamExampleStack extends Stack {
     public CdkSamExampleStack(final Construct scope, final String id) {
@@ -29,6 +24,7 @@ public class CdkSamExampleStack extends Stack {
                 .code(DockerImageCode.fromImageAsset("./lambda-image-support/HelloWorldFunction"))
                 .timeout(Duration.seconds(20))
                 .memorySize(1024)
+                .architectures(Collections.singletonList(Architecture.ARM_64))
                 .build());
     }
 }
